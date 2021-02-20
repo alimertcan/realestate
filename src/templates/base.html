@@ -1,0 +1,115 @@
+{% load staticfiles %}
+<!--DOCTYPE html -->
+<html>
+<head>
+<title>{% block head_title %}Try Django 1.9{% endblock head_title %}</title>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel='stylesheet' href='/static/css/base.css' />
+<style>
+{% block style %}{% endblock style %}
+</style>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="logo" width="10" title="anasayfaya dön" href="/home/"><img src="/media/logo.png" width="100px"/></img></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/property/list/">PropertyList <span class="sr-only">(current)</span></a></li>
+        <li><a href="/property/create/">Property Create</a></li>
+          <li><a href="/property/filter2/">Property Like</a></li>
+      </ul>
+ <ul class="nav navbar-nav navbar-right">
+ 	{% if user.is_authenticated %}
+ 	<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><b></b> </a>
+			<ul id="login-dp" class="dropdown-menu">
+				<li>
+					<div class="row">
+							<div class="col-md-12">
+								<div class="help-block text-center"><a href="#"><i class="fa fa-user" aria-hidden="true"></i>{{ user.username}}</a></div>
+									<a href="/property/usersee/" class="btn btn-fb"><i class="fa fa-cog" aria-hidden="true"></i> Preferences</a>
+									<a href="/property/message/" class="btn btn-tw"><i class="fa fa-address-book-o" aria-hidden="true"></i>Messages</a>
+                  <a href="/property/myproperty/" class="btn btn-tw"> MyProperty</a>
+                  <a href="/property/favorites/" class="btn btn-tw"><i class="fa fa-star" aria-hidden="true"></i> Favorites</a>
+                  <a href="/logout/" class="btn btn-tw"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                 
+								</div>
+					 </div>	
+
+ 	{%endif%}
+ 	{%if not user.is_authenticated%}
+        <li><p class="navbar-text">Already have an account?</p></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+			<ul id="login-dp" class="dropdown-menu">
+				<li>
+					 <div class="row">
+							<div class="col-md-12">
+								Login via
+								<div class="social-buttons">
+									<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+									<a href="#" class="btn btn-tw"><i class="fa fa-twitter"></i> Twitter</a>
+								</div>
+                               
+                                <div class="help-block text-center"><a href="/accounts/login/">Login</a></div>
+										</div>
+                                             <div class="help-block text-center"><a href="">Forget the password ?</a></div>
+									
+							</div>
+							<div class="bottom text-center">
+								New here ? <a href="/register/"><b>Join Us</b></a>
+							</div>
+					 </div>
+				</li>
+			</ul>
+        </li>
+      </ul>
+      {%endif%}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+{% include "messages_display.html" %}
+<div class='container'>
+{% block content %}{% endblock content %}
+</div>
+
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+</body>
+</html>

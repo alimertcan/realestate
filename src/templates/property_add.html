@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>Form</h1>
+
+<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+<div class="fieldWrapper">
+
+{{ form.as_p }}
+
+{{ form2.as_p}}
+  <span class="helptext">{{ form.subject.help_text }}</span>
+    </div>
+
+<input type='submit' class='btn btn-default' value='Add Property' />
+</form>
+</div>
+{% endblock content %}

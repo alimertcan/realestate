@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>Inbox</h1>
+ 
+
+{% for obj in instance %}
+<div class="row">
+  <div class="col-sm-12">
+    <div class="thumbnail">
+        {% if obj.subject %}
+         <p>Konu: {{ obj.subject }}<p/>
+        {% endif %}
+        <p> Sender: {{obj.sender.get_full_name}}</p>
+      <div class="caption">
+      	<p>Content:</p>
+        <h5>{{ obj.msg_content }}</h5><small>Sent Date:{{ obj.time }}</small>
+       
+      
+        <p><a href="{{obj.sender_id}}/sent/" class="btn btn-primary" role="button">Reply</a></p>
+         <p><a href="{{obj.id}}/delete/" class="btn btn-primary" role="button">Delete</a></p>
+      </div>
+    </div>
+  </div>
+<hr/>
+</div>
+{% endfor %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block head_title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+<script type="text/javascript" src="/static/js/jquery.fancybox.min.js/"></script>
+
+{% block content %}
+<div class='col-sm-6 col-sm-offset-3'>
+
+
+<h1>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}Advert Date:{{ instance.publish }}</small></h1>
+{% if instance.user.get_full_name %}
+<p>Creator: {{ instance.user.get_full_name }}</p>
+{% endif %}
+
+{%for e in instance1%}
+{% if e.image %}
+<div class="container">
+  <div class="row">
+    <div class='list-group gallery'>
+            <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+                <a class="thumbnail fancybox" rel="ligthbox" href="{{e.image.url}}">
+                    <img class="img-responsive" alt="" src='{{e.image.url}}' />
+                </a>
+            </div> <!-- col-6 / end -->
+             </div>
+              </div>
+               </div>
+    
+    {% endif %}
+{%endfor%}
+
+
+<div class='row'>
+<div class='col-sm-12'>
+	<ul class="list-group">
+<li class="list-group-item">Price:<br>{{ instance.price|floatformat:2|intcomma}}$</li>
+<li class="list-group-item">FloorNumber:{{ instance.floornumber|linebreaks }}</li>
+<li class="list-group-item">Metrekare:{{ instance.metrekare|linebreaks }}</li>
+<li class="list-group-item">Room Number:{{ instance.roomnumber|linebreaks }}</li>
+<li class="list-group-item">Building Age:{{ instance.buildingage|linebreaks }}</li>
+<li class="list-group-item">Sale Choice:{{ instance.get_sale_choice_display|linebreaks }}</li>
+<li class="list-group-item">Property Choice:{{ instance.get_prop_choice_display|linebreaks }}</li>
+<li class="list-group-item">Heating Choice:{{ instance.get_heating_choice_display|linebreaks }}</li>
+<li class="list-group-item">Email Address for Advert:{{ instance.user.email|linebreaks }}</li>
+<li class="list-group-item">Furnished:{{ instance.furnished|yesno:"Yes,No"|linebreaks }}</li>
+<li class="list-group-item">Address:{{ instance.location_desc|linebreaks }}</li>
+<li class="list-group-item">Explanation:{{ instance.prop_desc|linebreaks }}</li>
+</ul>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#">Advert Page</a></li>
+  {%ifnotequal instance.user_id request.user.id%}
+  <li role="presentation"><a href="/property/message/{{instance.user_id}}/sent">Send a Message</a></li>
+  {%endifnotequal%}
+  {%if instance2%}
+  <li role="presentation"><a href="/property/{{instance.id}}/dislike/">Dislike</a></li>
+ 
+  {%else%}
+  
+ <li role="presentation"><a href="/property/{{instance.id}}/like/">Like</a></li>
+  {%endif%}
+{%ifequal instance.user_id request.user.id%}
+ <li role="presentation"><a href="/property/{{instance.id}}/edit/">Edit</a></li>
+  
+
+ <li role="presentation"><a href="/property/{{instance.id}}/delete/">Delete</a></li>
+ {%endifequal%}
+</ul>
+</div>
+
+             
+                  <!--   <input id="id_vote" type="hidden" value="1" name="vote"> 
+                    <input id="id_user" type="hidden" value="{{request.user.id}}" name="user"> 
+                    <input id="id_prop" type="hidden" value="{{instance.id}}" name="prop"> 
+                
+                    <input type='submit' class='btn btn-default' value='Like' />-->
+                   
+
+              
+                   <!-- <input id="id_vote" type="hidden" value="0" name="vote"> 
+                    <input id="id_user" type="hidden" value="{{request.user.id}}" name="user"> 
+                    <input id="id_prop" type="hidden" value="{{instance.id}}" name="prop"> 
+                
+                    <input type='submit' class='btn btn-default disabled' value='Dislike' />-->
+                    
+
+
+</div>
+<p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+</p>
+</div>
+
+<script>
+    $(document).ready(function(){
+
+    $(".fancybox").fancybox({
+        openEffect: "none",
+        closeEffect: "none"
+    });
+});
+
+{% endblock content %}
+
+

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}
+{{ instance.title }}
+{% endblock head_title %}
+
+
+
+{% block content %}
+<div class='col-sm-6 col-sm-offset-3'>
+<h1>User Preferences</h1>
+{% if instance.user.get_full_name %}
+<p>Welcome <strong>{{ instance.user.get_full_name }}</strong></p>
+{% endif %}
+
+
+
+
+
+<div class='row'>
+<div class='col-sm-12'>
+	<ul class="list-group">
+<li class="list-group-item">PriceMin:<br>{{ instance.upricemin}}$</li>
+<li class="list-group-item">PriceMax:<br>{{ instance.upricemax}}$</li>
+<li class="list-group-item">FloorNumber:{{ instance.ufloornumber|linebreaks }}</li>
+<li class="list-group-item">MetrekareMin:{{ instance.umetrekaremin|linebreaks }}</li>
+<li class="list-group-item">MetrekareMax:{{ instance.umetrekaremax|linebreaks }}</li>
+<li class="list-group-item">Room Number:{{ instance.uroomnumber|linebreaks }}</li>
+<li class="list-group-item">Building Age:{{ instance.ubuildingage|linebreaks }}</li>
+<li class="list-group-item">Sale Choice:{{ instance.get_usale_choice_display|linebreaks }}</li>
+<li class="list-group-item">Property Choice:{{ instance.get_uprop_choice_display|linebreaks }}</li>
+<li class="list-group-item">Heating Choice:{{ instance.get_uheating_choice_display|linebreaks }}</li>
+<li class="list-group-item">Furnished:{{ instance.ufurnished|yesno:"Yes,No"|linebreaks }}</li>
+
+</ul>
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="/property/userpre/">Edit Preferences</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+
+
+{% endblock content %}
